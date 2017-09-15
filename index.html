@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/assets/css/site.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>
+    
+    <title>m.m</title>
+</head>
+
+<body ng-app="myApp">
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron text-center">
+                        <h1>movie.machine</h1>
+                        <a class="btn" href="#/search"><strong>Search Movies</strong></a>
+                        <strong> | </strong>
+                        <a class="btn" href="#/"><strong>Suggest Movies</strong></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <ng-view></ng-view>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <h4>movie.machine 2017</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Module -->
+    <script src="app/app.js"></script>
+
+    <!-- Directives -->
+    <script src="app/directives/filter.js"></script>
+    <script src="app/directives/movie.js"></script>
+
+    <!-- Controllers -->
+    <script src="app/controllers/MovieController.js"></script>
+    <script src="app/controllers/FilterController.js"></script>
+    <script src="app/controllers/HomeController.js"></script>
+
+    <!-- Services -->
+    <script src="app/services/filterservice.js"></script>
+
+</body>
+
+</html>

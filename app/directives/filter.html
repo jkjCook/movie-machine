@@ -1,0 +1,20 @@
+<div ng-app="myAppFilterCtrl" ng-controller="FilterController" class="filter col-md-12">
+    <form method="post" action="/addfilter">
+        <div class="col-md-12">
+            <label for="yearstart">Between years</label>
+            <input type="text" name="yearstart" class="form-control" ng-model="filterdata.yearstart" placeholder="Starting year">
+            <br/>
+            <input type="text" name="yearend" class="form-control" ng-model="filterdata.yearend" placeholder="Ending year">
+        </div>
+        <div class="col-md-12">
+            <br/>
+            <label for="genre">Genre</label>
+            <input type="text" name="genre" class="form-control" ng-model="filterdata.genre" placeholder="Musical">
+        </div>
+        <div class="col-md-12">
+            <br/>
+            <label for="keyword">Keyword</label>
+            <input type="text" name="keyword" class="form-control" ng-model="filterdata.keyword" placeholder="eg: Tom Cruise">
+        </div>
+    </form>
+</div>

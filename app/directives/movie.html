@@ -1,0 +1,28 @@
+<div ng-controller="HomeController" class="main container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="col-md-12">
+                <div class="col-md-12 page-header">
+                    <h2>{{movies[2].title}}</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="{{movies[2].poster}}" style="max-height:300px;">
+            </div>
+            <div class="col-md-8">
+                <strong>{{movies[2].runtime}}</strong><br/>
+                <strong>{{movies[2].releasedate | date}}</strong><br/>
+                <strong>Director: {{movies[2].director}}</strong>
+                <h4>{{movies[2].bio}}</h4>
+                <h5>Lead Actors: {{movies[2].leadroles[0]}}, {{movies[2].leadroles[1]}}, {{movies[2].leadroles[2]}}</h5>
+                <br/>
+                <div class="badge" id="scoreid" badge-color>
+                    <div>
+                        <h1>{{movies[2].score}}%</h1>
+                    </div>
+                </div>
+                <h1>{{filterdata.genre}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
