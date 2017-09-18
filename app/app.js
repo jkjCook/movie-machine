@@ -4,9 +4,9 @@ app.config(function($routeProvider){
     .when('/', {
         controller: 'HomeController',
         templateUrl: 'public/views/homeView.html' 
-    }).when('/search', {
+    }).when('/scrape', {
         controller: 'MovieController',
-        templateUrl: 'public/views/searchView.html'
+        templateUrl: 'public/views/scrapeView.html'
     })
     .otherwise({
         redirectTo: '/'

@@ -1,0 +1,22 @@
+<div class="col-md-12">
+    <form action="/scrape/add" method="post">
+        <fieldset>
+            <div class="form-group">
+                <legend>
+                    <h1>Add a movie</h1>
+                </legend>
+                <label for="url">URL:</label>
+                <input class="form-control" type="text" name="url" placeholder="input url" id="url">
+                <br><button id="submitButton" class="btn btn-default" type="submit">Submit</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="col-md-12">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-10">
+        <movie-directive></movie-directive>
+    </div>
+
+</div>
