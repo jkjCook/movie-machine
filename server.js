@@ -63,7 +63,6 @@ app.post("/scrape/add", (req, res) => {
     scrape.scrapeUrl(req.body.url).then((data) => {
         service.addMovie(data).then((data) => {
             res.json(data);
-            //res.redirect(__dirname + "/public/views/scrape.html")
         }).catch((err) => {
             res.json(err);
         })
@@ -71,6 +70,9 @@ app.post("/scrape/add", (req, res) => {
         console.log(err);
         res.redirect(__dirname + "/public/views/scrape.html")
     });
+});
+app.post("/addfilter", (req, res) =>{
+    res.redirect("/");
 });
 app.get("/random", (req, res) => {
     service.getRandom().then((data) => {
