@@ -7,7 +7,8 @@ const connectionString = "mongodb://jcook:zxcvbnm123@ds047592.mlab.com:47592/mov
 const dataService = require("./service.js");
 const service = dataService(connectionString);
 const scrape = require('./scraper/scrape.js');
-var HTTP_PORT = process.env.port || 8080;
+
+var HTTP_PORT = process.env.PORT || 8080;
 
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -81,8 +82,8 @@ app.use((req, res) => {
 });
 
 service.connect().then(() => {
-    app.listen(process.env.port || 8080, () => {
-        console.log("API Listening on: " + process.env.port || 8080);
+    app.listen(HTTP_PORT, () => {
+        console.log("API Listening on: " + HTTP_PORT);
     });
 }).catch((err) => {
     console.log("Unable to connect to API");
