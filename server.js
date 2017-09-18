@@ -81,8 +81,8 @@ app.use((req, res) => {
 });
 
 service.connect().then(() => {
-    app.listen(HTTP_PORT, () => {
-        console.log("API Listening on: " + HTTP_PORT);
+    app.listen(process.env.port || 8080, () => {
+        console.log("API Listening on: " + process.env.port || 8080);
     });
 }).catch((err) => {
     console.log("Unable to connect to API");
