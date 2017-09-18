@@ -32,6 +32,7 @@ module.exports = function (connectionString) {
         },
         getFilteredMovies: function (genre, start, end, starring) {
             return new Promise(function (resolve, reject) {
+                console.log(genre + " " + start + " " + end + " " + starring);
                 start = parseInt(start) - 1;
                 end = parseInt(end) + 1;
                 if (genre && !start && !end && !starring) {

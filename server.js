@@ -20,7 +20,9 @@ app.get('/', function (req, res) {
 });
 
 app.get("/movies", (req, res) => {
-    if (req.query.genre) {
+    console.log("please..");
+    if (req.query) {
+        console.log("reallycalling");
         service.getFilteredMovies(req.query.genre, req.query.start, req.query.end, req.query.starring)
             .then((movies) => {
                 res.json(movies);
@@ -30,6 +32,7 @@ app.get("/movies", (req, res) => {
             });
     }
     else {
+        console.log("calling!!!!!!!");
         service.getAllMovies()
             .then((movies) => {
                 res.json(movies);
@@ -70,9 +73,6 @@ app.post("/scrape/add", (req, res) => {
         console.log(err);
         res.redirect(__dirname + "/public/views/scrape.html")
     });
-});
-app.post("/addfilter", (req, res) =>{
-    res.redirect("/");
 });
 app.get("/random", (req, res) => {
     service.getRandom().then((data) => {

@@ -1,12 +1,13 @@
-angular.module('myApp').controller("FilterController", ["addFilters", function($scope, addFilters){
+angular.module('myApp').controller("FilterController", [ "$scope", "filterMovie", function($scope, filterMovie){
     $scope.genre;
     $scope.start;
     $scope.end;
     $scope.minscore;
     $scope.starring;
-
-    $scope.filter = function(){
-        addFilters.getFilters().then((response) =>{
+   
+    $scope.filterMovies = function(){
+        
+        filterMovie.filterMovies($scope.genre, $scope.start, $scope.end, $scope.starring).then((response) =>{
             console.log(response.data);
         });
     }
