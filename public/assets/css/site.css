@@ -58,15 +58,25 @@ footer{
 .movie.well h2{
     margin-top:-4%;
 }
-.filter{
-    margin-top:5%;
+#filterwell{
+    background-color: #fbfbfb;
 }
+.filter{
+    margin-top:5.5%;
+}
+
 #e-message{
     margin-top:5%;
     display:hidden;
 }
 .filters{
     margin-bottom:2%;
+}
+#footercredit{
+    color:white;
+}
+#footercredit:hover{
+    color:#999;
 }
 
 
