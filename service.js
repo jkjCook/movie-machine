@@ -105,7 +105,7 @@ module.exports = function (connectionString) {
                             reject(err);
                         });
                 }
-                else if (!genre && start && end && starring && rating) {
+                else if (!genre && start && end && starring && !rating) {
                     Movie.find({
                         $and: [
                             { $or: [{ "stars.0.0": starring }, { "stars.1.0": starring }, { "stars.2.0": starring }] }
