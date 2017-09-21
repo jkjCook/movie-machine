@@ -30,12 +30,11 @@ module.exports = function (connectionString) {
                     });
             });
         },
-        getFilteredMovies: function (genre, start, end, starring) {
+        getFilteredMovies: function (genre, start, end, starring, rating) {
             return new Promise(function (resolve, reject) {
-                console.log(genre + " " + start + " " + end + " " + starring);
                 start = parseInt(start) - 1;
                 end = parseInt(end) + 1;
-                if (genre && !start && !end && !starring) {
+                if (genre && !start && !end && !starring && !rating) {
                     Movie.find({
                         $or: [{ "genres.0.0": genre }, { "genres.1.0": genre }, { "genres.2.0": genre }]
                     })
@@ -47,7 +46,7 @@ module.exports = function (connectionString) {
                             reject(err);
                         });
                 }
-                else if (genre && start && end && !starring) {
+                else if (genre && start && end && !starring && !rating) {
                     Movie.find({
                         $or: [{ "genres.0.0": genre }, { "genres.1.0": genre }, { "genres.2.0": genre }],
                         year: { $gt: start, $lt: end }
@@ -60,13 +59,14 @@ module.exports = function (connectionString) {
                             reject(err);
                         });
                 }
-                else if (genre && start && end && starring) {
+                else if (genre && start && end && starring && rating) {
                     Movie.find({
                         $and: [
                             { $or: [{ "stars.0.0": starring }, { "stars.1.0": starring }, { "stars.2.0": starring }] },
                             { $or: [{ "genres.0.0": genre }, { "genres.1.0": genre }, { "genres.2.0": genre }] }
                         ],
-                        year: { $gt: start, $lt: end }
+                        year: { $gt: start, $lt: end },
+                        userRating: { $gt: rating}
                     })
                         .exec()
                         .then((movies) => {
@@ -76,7 +76,7 @@ module.exports = function (connectionString) {
                             reject(err);
                         });
                 }
-                else if (genre && !start && !end && starring) {
+                else if (genre && !start && !end && starring && !rating) {
                     Movie.find({
                         $and: [
                             { $or: [{ "stars.0.0": starring }, { "stars.1.0": starring }, { "stars.2.0": starring }] },
@@ -91,7 +91,7 @@ module.exports = function (connectionString) {
                             reject(err);
                         });
                 }
-                else if (!genre && start && end && starring) {
+                else if (!genre && start && end && starring && rating) {
                     Movie.find({
                         $and: [
                             { $or: [{ "stars.0.0": starring }, { "stars.1.0": starring }, { "stars.2.0": starring }] }
@@ -106,9 +106,78 @@ module.exports = function (connectionString) {
                             reject(err);
                         });
                 }
-                else if (!genre && start && end && !starring) {
+                else if (!genre && start && end && !starring && !rating) {
                     Movie.find({
                         year: { $gt: start, $lt: end }
+                    })
+                        .exec()
+                        .then((movies) => {
+                            resolve(movies);
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                }
+                else if (!genre && start && end && !starring && rating) {
+                    Movie.find({
+                        year: { $gt: start, $lt: end },
+                        userRating: { $gt: rating}
+                    })
+                        .exec()
+                        .then((movies) => {
+                            resolve(movies);
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                }
+                else if (genre && start && end && !starring && rating) {
+                    Movie.find({
+                        year: { $gt: start, $lt: end },
+                        userRating: { $gt: rating},
+                        $or: [{ "genres.0.0": genre }, { "genres.1.0": genre }, { "genres.2.0": genre }]
+                    })
+                        .exec()
+                        .then((movies) => {
+                            resolve(movies);
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                }
+                else if (genre && !start && !end && !starring && rating) {
+                    Movie.find({
+                        userRating: { $gt: rating},
+                        $or: [{ "genres.0.0": genre }, { "genres.1.0": genre }, { "genres.2.0": genre }]
+                    })
+                        .exec()
+                        .then((movies) => {
+                            resolve(movies);
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                }
+                else if (genre && !start && !end && starring && rating) {
+                    Movie.find({
+                        userRating: { $gt: rating},
+                        $and: [
+                            { $or: [{ "stars.0.0": starring }, { "stars.1.0": starring }, { "stars.2.0": starring }] },
+                            { $or: [{ "genres.0.0": genre }, { "genres.1.0": genre }, { "genres.2.0": genre }] }
+                        ]
+                    })
+                        .exec()
+                        .then((movies) => {
+                            resolve(movies);
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                }
+                else if (!genre && !start && !end && starring && rating) {
+                    Movie.find({
+                        userRating: { $gt: rating},
+                        $or: [{ "stars.0.0": starring }, { "stars.1.0": starring }, { "stars.2.0": starring }]
                     })
                         .exec()
                         .then((movies) => {

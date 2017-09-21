@@ -20,10 +20,9 @@ app.get('/', function (req, res) {
 });
 
 app.get("/movies", (req, res) => {
-    console.log("please..");
     if (req.query) {
-        console.log("reallycalling");
-        service.getFilteredMovies(req.query.genre, req.query.start, req.query.end, req.query.starring)
+        service.getFilteredMovies(req.query.genre, req.query.start, req.query.end, 
+        req.query.starring, req.query.rating)
             .then((movies) => {
                 res.json(movies);
             })
@@ -32,7 +31,6 @@ app.get("/movies", (req, res) => {
             });
     }
     else {
-        console.log("calling!!!!!!!");
         service.getAllMovies()
             .then((movies) => {
                 res.json(movies);
