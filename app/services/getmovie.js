@@ -21,7 +21,7 @@ angular.module('myApp').factory('getMovie', ['$http', function ($http) {
         if(starring)
             URL += "starring=" + starring + "&";
         if(rating)
-            URL += "rating=" + rating; 
+            URL += "rating=" + rating;
         return $http.get(URL);
     }
     return factory;

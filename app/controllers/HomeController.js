@@ -10,29 +10,29 @@ angular.module('myApp').controller("HomeController", ["$scope", "getMovie", "$sc
     $scope.barvalue;
 
 
-    $scope.displayFilters = function(){
-        if($scope.genre){
+    $scope.displayFilters = function () {
+        if ($scope.genre) {
             angular.element(document.getElementById("filtergenre").style.display = "block");
         }
-        else{
+        else {
             angular.element(document.getElementById("filtergenre").style.display = "none");
         }
-        if($scope.start){
+        if ($scope.start) {
             angular.element(document.getElementById("filteryear").style.display = "block");
         }
-        else{
+        else {
             angular.element(document.getElementById("filteryear").style.display = "none");
         }
-        if($scope.rating){
+        if ($scope.rating) {
             angular.element(document.getElementById("filterrating").style.display = "block")
         }
-        else{
+        else {
             angular.element(document.getElementById("filterrating").style.display = "none")
         }
-        if($scope.starring){
+        if ($scope.starring) {
             angular.element(document.getElementById("filterstarring").style.display = "block")
         }
-        else{
+        else {
             angular.element(document.getElementById("filterstarring").style.display = "none")
         }
     }
@@ -85,35 +85,40 @@ angular.module('myApp').controller("HomeController", ["$scope", "getMovie", "$sc
     }
     //Sends the filter request from the input
     $scope.filterMovies = function () {
-
+        $('#e-message').empty();
         if ($scope.start && !$scope.end) {
             var dt = new Date;
             $scope.end = dt.getYear() + 1900;
         }
-        else if($scope.end && !$scope.start){
+        else if ($scope.end && !$scope.start) {
             $scope.start = 1900;
         }
-        $('#e-message').empty();
-        getMovie.filterMovies($scope.genre, $scope.start, $scope.end, $scope.starring, $scope.rating).then((response) => {
-            var num = Math.floor(Math.random() * response.data.length);
-            $scope.movieData = response.data[num];
-            if (!$scope.movieData) {
-                $scope.noMatchingMovie();
-            }
-            else {
-                if ($scope.movieData.trailer == "N/A") {
-                    $scope.movieData.trailer = "";
-                    $scope.iframe = "";
+
+        if (!$scope.genre && !$scope.start && !$scope.end && !$scope.starring && !$scope.rating) {
+            $scope.call();
+        }
+        else {
+            getMovie.filterMovies($scope.genre, $scope.start, $scope.end, $scope.starring, $scope.rating).then((response) => {
+                var num = Math.floor(Math.random() * response.data.length);
+                $scope.movieData = response.data[num];
+                if (!$scope.movieData) {
+                    $scope.noMatchingMovie();
                 }
                 else {
-                    $scope.iframe = $sce.trustAsResourceUrl($scope.movieData.trailer);
+                    if ($scope.movieData.trailer == "N/A") {
+                        $scope.movieData.trailer = "";
+                        $scope.iframe = "";
+                    }
+                    else {
+                        $scope.iframe = $sce.trustAsResourceUrl($scope.movieData.trailer);
+                    }
+                    $scope.getRating();
+                    $scope.showIframe();
+                    $scope.displayFilters();
                 }
-                $scope.getRating();
-                $scope.showIframe();
-                $scope.displayFilters();
-            }
 
-        });
+            });
+        }
     }
     //Call for a random movie on refresh
     $scope.call = function () {
