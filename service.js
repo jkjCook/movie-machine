@@ -34,6 +34,7 @@ module.exports = function (connectionString) {
             return new Promise(function (resolve, reject) {
                 start = parseInt(start) - 1;
                 end = parseInt(end) + 1;
+                rating = parseInt(rating);
                 if (genre && !start && !end && !starring && !rating) {
                     Movie.find({
                         $or: [{ "genres.0.0": genre }, { "genres.1.0": genre }, { "genres.2.0": genre }]
@@ -178,6 +179,18 @@ module.exports = function (connectionString) {
                     Movie.find({
                         userRating: { $gt: rating},
                         $or: [{ "stars.0.0": starring }, { "stars.1.0": starring }, { "stars.2.0": starring }]
+                    })
+                        .exec()
+                        .then((movies) => {
+                            resolve(movies);
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                }
+                else if (!genre && !start && !end && !starring && rating) {
+                    Movie.find({
+                        userRating: { $gt: rating}
                     })
                         .exec()
                         .then((movies) => {
