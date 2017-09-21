@@ -1,38 +1,49 @@
 <div ng-controller="HomeController">
-    <div class="col-md-8">
-        <div class="row">
-            <div class="col-md-12" id="trailer">
-                <iframe src="{{iframe}}" id="frame"></iframe>
-            </div>
-            <div class="col-md-8">
-                <div class="col-md-12">
-                    <div id="e-message">
+    <div class="movie col-md-7">
+        <div class="movie well">
+            <div class="row">
+                <div class="col-md-12 page-header">
+                    <div class="col-md-6">
+                        <h2><strong>{{movieData.title}}</strong> ({{movieData.year}})</h2>
                     </div>
-                    <div class="col-md-12 page-header">
-                        <h2>{{movieData.title}}</h2>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <img id="videoWindow" src="{{movieData.poster}}" style="max-height:300px;">
-                </div>
-                <div class="col-md-8">
-                    <strong>{{movieData.runtime}}</strong><br/>
-                    <strong>{{movieData.year}}</strong><br/>
-                    <strong>Director: {{movieData.director}}</strong>
-                    <h4>{{movieData.synopsis}}</h4>
-                    <h5>Lead Actors: {{movieData.stars[0]}}, {{movieData.stars[1]}}, {{movieData.stars[2]}}</h5>
-                    <br/>
-                    <div class="badge" id="scoreid">
-                        <div>
-                            <h1>{{movieData.userRating}}/10</h1>
+                    <div class="col-md-6">
+                        <div class="progress">
+                            <div class="progress-bar" id="prog" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                IMDb User Rating {{movieData.userRating}}
+                            </div>
                         </div>
+                        <h5 class="text-right">IMDb User Rating</h5>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div id="trailer">
+                        <iframe id="frame" src="{{iframe}}"></iframe>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-
+    <div class="col-md-1">
+    </div>
     <div class="col-md-4">
+        <div class="row">
+            <div class="form-inline">
+                <label for="rating">Minimum Rating</label>
+                <select class="form-control" ng-model="rating" name="rating" id="rating"><option selected>No Rating</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+             </select>
+
+            </div>
+        </div>
         <div>
             <div class="col-md-12">
                 <label for="yearstart">Between years</label>
@@ -43,7 +54,7 @@
             <div class="col-md-12">
                 <br/>
                 <label for="genre">Genre</label>
-                <input type="text" name="genre" class="form-control" ng-model="genre" placeholder="Musical">
+                <input type="text" name="genre" class="form-control" ng-model="genre">
             </div>
             <div class="col-md-12">
                 <br/>
@@ -52,8 +63,7 @@
             </div>
             <div class="col-md-12">
                 <br/>
-                <label for="rating">Rating</label>
-                <input type="number" name="rating" class="form-control" ng-model="rating" placeholder="8">
+
             </div>
             <div class="col-md-12">
                 <br>

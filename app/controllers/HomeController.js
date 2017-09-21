@@ -7,12 +7,13 @@ angular.module('myApp').controller("HomeController", ["$scope", "getMovie", "$co
     $scope.rating;
     $scope.starring;
     $scope.iframe;
+    $scope.barvalue;
 
     $scope.showIframe = function () {
         if ($scope.iframe) {
             angular.element(document.getElementById("trailer").style.display = "block");
         }
-        else{
+        else {
             angular.element(document.getElementById("trailer").style.display = "none");
         }
     }
@@ -22,18 +23,25 @@ angular.module('myApp').controller("HomeController", ["$scope", "getMovie", "$co
         $('#e-message').append('<div class="alert alert-danger"><strong>No movies match this filter!</strong></div>');
     }
     $scope.getRating = function () {
+        $scope.barvalue = $scope.movieData.userRating * 10;
+        angular.element(document.getElementById('prog'))[0].style.width = $scope.barvalue + '%';
+
         if ($scope.movieData.userRating < 4) {
-            angular.element(document.getElementById("scoreid").style.background = "red");
+            angular.element(document.getElementById("prog"))[0].style.background = "red";
         }
         else if ($scope.movieData.userRating < 6) {
-            angular.element(document.getElementById("scoreid").style.background = '#e3e300');
+            angular.element(document.getElementById("prog"))[0].style.background = '#e3e300';
         }
         else {
-            angular.element(document.getElementById("scoreid").style.background = 'green');
+            angular.element(document.getElementById("prog"))[0].style.background = 'green';
         }
     }
     $scope.filterMovies = function () {
-        console.log($scope.rating);
+
+        if ($scope.start && !$scope.end) {
+            var dt = new Date;
+            $scope.end = dt.getYear() + 1900;
+        }
         $('#e-message').empty();
         getMovie.filterMovies($scope.genre, $scope.start, $scope.end, $scope.starring, $scope.rating).then((response) => {
             $scope.movieData = response.data[0];

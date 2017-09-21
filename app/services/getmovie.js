@@ -10,14 +10,18 @@ angular.module('myApp').factory('getMovie', ['$http', function ($http) {
         var URL = 'https://movie-machine.herokuapp.com/random';
         return $http.get(URL);
     }
-    factory.filterMovies = function(genre, start, end, starring){
+    factory.filterMovies = function(genre, start, end, starring, rating){
         var URL = 'https://movie-machine.herokuapp.com/movies?';
         if(genre)
             URL += "genre=" + genre + "&";
-        if(start || end)
-            URL += "start=" + start + "&end=" + end + "&";
+        if(start)
+            URL += "start=" + start + "&";
+        if(end)
+            URL += "end=" + end + "&";
         if(starring)
-            URL += "starring=" + starring; 
+            URL += "starring=" + starring + "&";
+        if(rating)
+            URL += "rating=" + rating; 
         return $http.get(URL);
     }
     return factory;

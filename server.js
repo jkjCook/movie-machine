@@ -20,7 +20,8 @@ app.get('/', function (req, res) {
 });
 
 app.get("/movies", (req, res) => {
-    if (req.query) {
+    if (req.query.genre || req.query.start || req.query.end ||
+        req.query.starring || req.query.rating) {
         service.getFilteredMovies(req.query.genre, req.query.start, req.query.end, 
         req.query.starring, req.query.rating)
             .then((movies) => {
