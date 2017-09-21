@@ -1,74 +1,133 @@
 <div ng-controller="HomeController">
     <div class="movie col-md-7">
+        <div class="row" id="e-message">
+
+        </div>
         <div class="movie well">
             <div class="row">
                 <div class="col-md-12 page-header">
                     <div class="col-md-6">
                         <h2><strong>{{movieData.title}}</strong> ({{movieData.year}})</h2>
+                        <h4>{{movieData.runtime}}</h4>
                     </div>
                     <div class="col-md-6">
                         <div class="progress">
-                            <div class="progress-bar" id="prog" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                IMDb User Rating {{movieData.userRating}}
+                            <div class="progress-bar" id="imdbprog" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                IMDb: <strong>{{movieData.userRating}}</strong>
                             </div>
                         </div>
-                        <h5 class="text-right">IMDb User Rating</h5>
+                        <div class="progress" id="metabar">
+                            <div class="progress-bar" id="metaprog" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                Metacritic: <strong>{{movieData.metaScore}}</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div id="trailer">
                         <iframe id="frame" src="{{iframe}}"></iframe>
                     </div>
                 </div>
-
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{movieData.poster}}">
+                </div>
+                <div class="col-md-8" id="synopsis">
+                    <h4>{{movieData.synopsis}}</h4>
+                    <h5><strong>Director:</strong> {{movieData.director}}</h5>
+                    <h5><strong>Writers:</strong> {{movieData.writers[0]}}, {{movieData.writers[1]}}, {{movieData.writers[2]}}</h5>
+                    <h5><strong>Stars:</strong> {{movieData.stars[0]}}, {{movieData.stars[1]}}, {{movieData.stars[2]}}</h5>
+                    <h5><strong>Genres:</strong> {{movieData.genres[0]}}, {{movieData.genres[1]}}, {{movieData.genres[2]}}</h5>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-1">
     </div>
-    <div class="col-md-4">
-        <div class="row">
-            <div class="form-inline">
-                <label for="rating">Minimum Rating</label>
-                <select class="form-control" ng-model="rating" name="rating" id="rating"><option selected>No Rating</option>
-                    <option value=1>1</option>
-                    <option value=2>2</option>
-                    <option value=3>3</option>
-                    <option value=4>4</option>
-                    <option value=5>5</option>
-                    <option value=6>6</option>
-                    <option value=7>7</option>
-                    <option value=8>8</option>
-                    <option value=9>9</option>
-             </select>
+    <div class="filter col-md-4">
+        <div class="well">
+            <form class="form-horizontal">
+                <div class="row">
+                    <div class="filters col-md-12">
+                        <h3 id="filtergenre"><span class="label label-default">Genre: {{genre}}</span></h3>
+                        <h3 id="filteryear"><span class="label label-default">Year: {{start}} - {{end}}</span></h3>
+                        <h3 id="filterrating"><span class="label label-default">Rating: {{rating}}</span></h3>
+                        <h3 id="filterstarring"><span class="label label-default">Starring: {{starring}}</span></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="col-md-6">
+                            <label for="start">Year</label>
+                            <input type="text" name="start" class="form-control input-sm" ng-model="start" placeholder="Start year (2005)">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="start">&nbsp;</label>
+                            <input type="text" name="end" class="form-control input-sm" ng-model="end" placeholder="End year (2017)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <br>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="genre">Genre</label>
+                                <select name="genre" class="form-control" ng-model="genre">
+                        <option></option>
+                        <option value="Action">Action</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Animation">Animation</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Crime">Crime</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option value="Thriller">Thriller</option>
+                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            </div>
-        </div>
-        <div>
-            <div class="col-md-12">
-                <label for="yearstart">Between years</label>
-                <input type="text" name="start" class="form-control" ng-model="start" placeholder="Starting year">
-                <br/>
-                <input type="text" name="end" class="form-control" ng-model="end" placeholder="Ending year">
-            </div>
-            <div class="col-md-12">
-                <br/>
-                <label for="genre">Genre</label>
-                <input type="text" name="genre" class="form-control" ng-model="genre">
-            </div>
-            <div class="col-md-12">
-                <br/>
-                <label for="starring">Starring</label>
-                <input type="text" name="starring" class="form-control" ng-model="starring" placeholder="eg: Tom Cruise">
-            </div>
-            <div class="col-md-12">
-                <br/>
-
-            </div>
-            <div class="col-md-12">
-                <br>
-                <button ng-click="filterMovies()">Apply Filters</button>
-            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="starring">Starring</label>
+                                <input type="text" name="starring" class="form-control" ng-model="starring" placeholder="eg: Tom Cruise">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="rating">Minimum Rating</label>
+                                <select class="form-control" ng-model="rating" name="rating">
+                                <option></option>
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5</option>
+                                <option value=6>6</option>
+                                <option value=7>7</option>
+                                <option value=8>8</option>
+                                <option value=9>9</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-default" ng-click="filterMovies()">Apply Filters</button>
+            </form>
         </div>
     </div>
 </div>

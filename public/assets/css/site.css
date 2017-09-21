@@ -41,19 +41,34 @@ footer{
 .btn:hover{
     color:#111 !important;
 }
+#trailer{
+    height:500px;
+}
 #frame{
     overflow-y: hidden;
     border: 0;
     width: 100%;
-    min-height:450px;
+    height:90%;
     max-height:500px;
 }
 .movie.well{
     margin-top:5%;
+    background-color: #fbfbfb;
 }
 .movie.well h2{
     margin-top:-4%;
 }
+.filter{
+    margin-top:5%;
+}
+#e-message{
+    margin-top:5%;
+    display:hidden;
+}
+.filters{
+    margin-bottom:2%;
+}
+
 
 
 
